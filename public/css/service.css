@@ -1,0 +1,49 @@
+div.banner-service{
+    background: url("../images/bg2.jpg") no-repeat;
+    background-size: 100% 100%;
+}
+
+div.describe p{
+    padding-bottom: 1em;
+    margin-bottom: 0;
+    border: none;
+}
+
+div.checktype{
+    max-width: 40em;
+    padding-top: 1em;
+    padding-bottom: 1em;
+    margin-bottom: 1em;
+    border-top: 1px solid #ff6c45;
+    border-bottom: 1px solid #ff6c45;
+}
+
+div.service{
+    margin: 1em auto;
+}
+
+.thumbnail {
+    margin-top: 1em;
+    padding: 0 0 15px 0;
+    border: none;
+    border-radius: 0;
+}
+
+.thumbnail img {
+margin-bottom: 1em;
+}
+
+div.thumbnail p{
+    color: white;
+    background: #ff6c45;
+    margin:auto 15%;
+    padding: 0.5em;
+}
+
+div.service a:hover{
+    text-decoration: none;
+}
+
+div.service a:hover p{
+    background: #bb725e;
+}

@@ -1,0 +1,79 @@
+<!--Bắt đầu footer-->
+    <div class="container-fluid">
+        <div class="jumbotron text-center footer">
+            <h2>LÀM VIỆC CÙNG EZ-LIFE</h3>
+            <p>Bạn đã sẵn sàng làm việc cùng chúng tôi ? Bạn có mong muốn tăng thu nhập?</p>
+            <p>Đừng chừng chờ hãy liên hệ ngay, vì chúng tôi luôn sẵn sàng hỗ trợ bạn</p>
+            <p class="join">
+                <a href="#" class="newRegister">
+                    THAM GIA
+                </a>
+            </p>
+            <h4 class="contact"><a href="/contact">LIÊN HỆ</a></h4>
+            <p class="copyright">&copy;2019 Group05</p>
+        </div>
+    </div>
+    <!--Kết thúc footer-->
+
+    <!--Login form and Register form-->
+    <!--Login form-->
+    <div id="modal-login" class="modal">
+  
+        <form class="modal-content animate" action="/users/login" method="POST">
+              
+          <div class="imgcontainer">
+            <span onclick="document.getElementById('modal-login').style.display='none'" class="close" title="Close PopUp">&times;</span>
+            <img src="/images/1.png" alt="Avatar" class="avatar">
+            <h1 style="text-align:center">ĐĂNG NHẬP</h1>
+          </div>
+      
+          <div class="">
+            <input type="text" placeholder="Enter Username" name="username">
+            <input type="password" placeholder="Enter Password" name="password">        
+            <button type="submit">Login</button>
+            <p style="text-align: end;"><a href="#" style="text-decoration:none;margin-right:34px; margin-top:26px;">Forgot your pasword?</a></p>
+          </div>
+          
+        </form>
+        
+    </div>
+    <!--End of login form-->
+
+    <!--Register Form-->
+    <div id="modal-sign-up" class="modal">
+  
+        <form class="modal-content animate" action="/users/register" method="POST">
+              
+          <div class="imgcontainer">
+            <span onclick="document.getElementById('modal-sign-up').style.display='none'" class="close" title="Close PopUp">&times;</span>
+            <img src="/images/2.jpg" alt="Avatar" class="avatar">
+            <h1 style="text-align:center">ĐĂNG KÝ</h1>
+          </div>
+      
+          <p id="warning" class="text-center" style="color: red;"></p>
+          <div class="">
+            <input type="text" name="name" placeholder="Enter your name" required>
+            <input type="text" id="username" name="username" placeholder="Enter Username" required/>
+            <input type="password" id="password" name="password" placeholder="Enter Password" required/>
+            <input type="password" id="repassword" name="repassword" placeholder="Enter Password Again" required/>
+            <input type="text" id="phone" name="phone" placeholder="Enter phone number" required/>
+            <input type="text" id="email" name="email" placeholder="Enter Email@gmail.com" required/>    
+            <button type="submit" onclick="return checkValidation()">Sign Up</button>
+          </div>
+          
+        </form>
+        
+    </div>
+
+    <script>
+        // If user clicks anywhere outside of the modal, Modal will close
+        
+        var modal_login = document.getElementById('modal-login');
+        var modal_register = document.getElementById('modal-sign-up');
+        window.onclick = function(event) {
+            if (event.target == modal_login || event.target == modal_register) {
+                modal_login.style.display = "none";
+                modal_register.style.display = "none";
+            }
+        }
+    </script>

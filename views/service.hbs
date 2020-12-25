@@ -1,0 +1,222 @@
+<link rel="stylesheet" href="/css/service.css">
+<!--Bắt đàu cho Banner-->
+<div class="jumbotron text-center banner-service">
+    <div class="slogan">
+        <h1>Hãy để chúng tôi giúp bạn</h1>
+        <p>Tìm người giúp việc, sửa chữa các thiết bị trong gia đình…</p>
+    </div>
+    <div class="container search">
+        <form method="POST" class="form-inline" action='/service/search'>
+            <div class="row">
+                <div class="col-xs-6 col-md-3 form-item">
+                    <div class="dropdown">
+                        <div class="dropdown-toggle" data-toggle="dropdown">
+                            <span id="serviceType_choose" class="k-input">Chọn dịch vụ</span>
+                            <input id="ServiceType_choose" type="hidden">
+                            <button type="button">
+                                <span class="caret"></span>
+                            </button>
+                        </div>
+                        <ul id="serviceType_choose" class="dropdown-menu">
+                            {{!-- <li>Giúp việc theo giờ - Dọn dẹp vệ sinh</li>
+                            <li>Vệ sinh máy lạnh - Sửa chữa máy lạnh</li>
+                            <li>Sữa chữa điện nước - Lắp đặt điện nước</li>
+                            <li>Sửa chữa thiết bị gia dụng</li> --}}
+                            <li data-id={{id}} data-string='{{serviceType.title}}'>{{serviceType.title}}</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-xs-6 col-md-4 form-item">
+                    <div class="dropdown">
+                        <div class="dropdown-toggle" data-toggle="dropdown">
+                            <span id="services_search" class="k-input">Dịch vụ</span>
+                            <input type="hidden" id="service_choose" name="id">
+                            <button type="button">
+                                <span class="caret"></span>
+                            </button>
+                        </div>
+                        <ul id="services_search" class="dropdown-menu">
+                            {{!-- <li>01 Người làm</li> --}}
+                            {{#each services}}
+                            <li class="ServiceType_{{ServiceTypeId}}" data-ServiceTypeId="{{ServiceTypeId}}"
+                                data-id={{id}} data-string='{{title}}'>{{title}}</li>
+                            {{/each}}
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-xs-6 col-md-2 form-item">
+                    <div class="dropdown">
+                        <div class="dropdown-toggle" data-toggle="dropdown">
+                            <span id="hour_search" class="k-input">Giờ bắt đầu</span>
+                            <input type="hidden" id="hour_choose" name="timeStart">
+                            <button type="button">
+                                <span class="caret"></span>
+                            </button>
+                        </div>
+                        <ul id="hour_search" class="dropdown-menu">
+                            <li data-string="06:00">06:00</li>
+                            <li data-string="07:00">07:00</li>
+                            <li data-string="08:00">08:00</li>
+                            <li data-string="09:00">09:00</li>
+                            <li data-string="10:00">10:00</li>
+                            <li data-string="11:00">11:00</li>
+                            <li data-string="12:00">12:00</li>
+                            <li data-string="13:00">13:00</li>
+                            <li data-string="14:00">14:00</li>
+                            <li data-string="15:00">15:00</li>
+                            <li data-string="16:00">16:00</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-xs-6 col-md-2 form-item">
+                    <input name="dateStart" id="date_choose" type="date" placeholder="Ngay lam" class="k-input"
+                        style="cursor: pointer;" style="height: 90%">
+                </div>
+                <div class="col-xs-12 col-md-1 form-item-btn">
+                    <input type="submit" value="Search" style="background:none;">
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<!--Kết thúc phần Banner-->
+
+<!--Bắt đầu phần mục tiêu-->
+<div class="container text-center">
+    <div class="services">
+        <div class="describe">
+            <h1>CHỌN GÓI DỊCH VỤ</h1>
+            <p>HÃY CHỌN GÓI DỊCH VỤ PHÙ HỢP VỚI BẠN</p>
+        </div>
+    </div>
+</div>
+<!--Kết thúc phần mục tiêu-->
+
+<!-- Form tạo Service chỉ dành cho admin -->
+{{#if isAdmin}}
+<div class="container text-center">
+    <button id="btn-create-Service" name="btn-create-Service" class="btn btn-primary">Create Service</button>
+</div>
+
+<form id="form-Service" class="form-horizontal" action="/service" data-product={{ServiceTypeId}} method="POST"
+    enctype="multipart/form-data">
+    <fieldset>
+
+        <!-- Form Name -->
+        <legend class="text-center">ADD SERVICE</legend>
+
+        <!-- File Button -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="imagepath-service">Image Path</label>
+            <div class="col-md-4">
+                <input id="imagepath-service" name="myImage" class="input-file" type="file">
+            </div>
+        </div>
+
+        <!-- ServiceTypes ID -->
+        <input type="hidden" id="input-comment-id" name="ServiceTypeId" value="{{ServiceTypeId}}">
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="title-service">Title</label>
+            <div class="col-md-5">
+                <input id="title-service" name="title" type="text" placeholder="Title of Service"
+                    class="form-control input-md" required="">
+
+            </div>
+        </div>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="price-service">Price</label>
+            <div class="col-md-5">
+                <input id="price-service" name="price" type="number" placeholder="Price of Service"
+                    class="form-control input-md" required="">
+
+            </div>
+        </div>
+
+        <!-- Button (Double) -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="submit"></label>
+            <div class="col-md-8">
+                <button id="submit" name="submit" class="btn btn-success">Submit</button>
+                <button id="cancel-create-service" name="cancel-create-service" class="btn btn-danger">Cancel</button>
+            </div>
+        </div>
+
+    </fieldset>
+</form>
+
+<!-- Kết thúc form -->
+
+<!-- Form Edit Price Service chỉ dành cho admin -->
+
+<form id="form-Service-edit" class="form-horizontal">
+    <fieldset>
+
+        <!-- Form Name -->
+        <legend class="text-center">Edit Service Price</legend>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="price-service-edit">Price</label>
+            <div class="col-md-5">
+                <input id="price-service-edit" name="price" type="number" placeholder="Price"
+                    class="form-control input-md" required="">
+
+            </div>
+        </div>
+
+        <input type="hidden" id="input-price-edit-id">
+        <input type="hidden" id="input-imagepath-edit-id">
+        <input type="hidden" id="input-title-edit-id">
+        <!-- Button (Double) -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="btn-save-service-edit"></label>
+            <div class="col-md-8">
+                <button id="btn-save-service-edit" type="submit" name="btn-save-service-edit"
+                    class="btn btn-success">Save</button>
+                <button id="btn-cancel-service-edit" name="btn-cancel-service-edit"
+                    class="btn btn-danger">Cancel</button>
+            </div>
+        </div>
+
+    </fieldset>
+</form>
+{{/if}}
+
+<!-- Kết thúc form -->
+
+<!--Bắt đầu lựa chọn Service-->
+<div class="container text-center service">
+    <div class="row">
+        {{#each serviceType.Services}}
+        <div class="col-xs-6  col-sm-3">
+            <div class="thumbnail">
+                <img src="{{imagepath}}" alt="2 giờ" width="50" height="50">
+                <a href="/service/{{id}}">
+                    <p><strong>{{title}}</strong></p>
+                </a>
+                {{#if ../isAdmin}}
+                <div class="row">
+                    <div class="col-sm-6">
+                        <button type="button" class="btn btn-success btn-sm btn-block btn-service-edit" data-id="{{id}}"
+                            data-price="{{price}}" data-imagepath="{{imagepath}}" date-title="{{title}}">
+                            <span class="glyphicon glyphicon-edit"></span>
+                        </button>
+                    </div>
+                    <div class="col-sm-6">
+                        <button type="button" class="btn btn-danger btn-sm btn-block btn-service-delete"
+                            data-id="{{id}}">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </button>
+                    </div>
+                </div>
+                {{/if}}
+            </div>
+        </div>
+        {{/each}}
+    </div>
+</div>
+<!--Kết thúc lựa chọn Service-->

@@ -1,0 +1,689 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>EZ LIFE - Quản lí dịch vụ</title>
+    <!-- Required meta tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/admin_style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
+    <!-- MDBootstrap Datatables: Dùng để xếp data theo thứ tự tăng/giảm  -->
+    <link href="css/addons/datatables.min.css" rel="stylesheet">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script src="js/basic.js"></script>
+  </head>
+
+  <body>
+      <!--Bắt đầu thanh menu-->
+    <div class="container-fluid" id="navbarC">
+        <nav class="navbar navbar-expand-sm navbar-light container">
+           <a class="navbar-brand" href="index.html">EZ-LIFE</a>
+            <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId"
+                aria-controls="collapsibleNavId" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        
+            <div class="collapse navbar-collapse justify-content-end" id="collapsibleNavId">
+                <ul class="navbar-nav mt-2 mt-lg-0">
+                    <li><a href="#" id="nav-worker">Đơn Hàng</a></li>
+                    <li><a href="#">Báo cáo</a></li>
+                    <li><a href="#">Tài Khoản</a></li>
+                    <li><a href="#" onclick="doForm('modal-login','modal-sign-up')"><span class="glyphicon glyphicon-log-out"></span> Đăng xuất</a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <!--Kết thúc thanh menu-->
+
+    <!--Bắt đầu table Quản lí đơn hàng-->
+    <div class="container" style="margin-top: 2em;">
+        <div class="container text-right">
+            <a href="#" id="btnThem" class="btn btn-success btn-sm" data-toggle="modal" data-target="#sanPhamModal"><i style="padding: 0 5px;" class="fa fa-plus" aria-hidden="true"></i>Thêm</a>
+            <a href="#" id="btnNhapDuLieu" class="btn btn-success btn-sm"><i style="padding: 0 5px;" class="fas fa-file-import" aria-hidden="true"></i>Nhập Dữ Liệu</a>
+            <a href="#" id="btnXuatDuLieu" class="btn btn-success btn-sm"><i style="padding: 0 5px;" class="fas fa-file-export" aria-hidden="true"></i>Xuất Dữ Liệu</a>
+            <a href="#" id="btnLoc" class="btn btn-success btn-sm"><i style="padding: 0 5px;" class="fa fa-filter" aria-hidden="true"></i>Lọc</a>
+        </div>
+        <div class="card border-0" style="margin-top: 1em;">
+            <div class="card-body p-0">
+                <div class="table-responsive table-invoice">
+                    <table id="dtBasicExample" class="table table-striped table-hover table-sm" cellspacing="2">
+                        <thead style="font-size: 11pt;">
+                            <tr>
+                                <th class="th-sm">Invoice ID</th>
+                                <th class="th-sm">Khách Hàng</th>
+                                <th class="th-sm">Số Điện Thoại</th>
+                                <th class="th-sm">Gói Dịch Vụ</th>
+                                <th class="th-sm">Số Nhân Viên</th>
+                                <th class="th-sm">Thời Gian</th>
+                                <th class="th-sm">Địa Chỉ</th>
+                                <th class="th-sm">Trạng Thái</th>
+                            </tr>
+                        </thead>
+                        <tbody style="font-size: 11pt;">
+                            <tr>
+                                <td><a href="#">INV-87239</a></td>
+                                <td>John Snow</td>
+                                <td>01235678</td>
+                                <td>Giúp Việc <BR>
+                                    2 Giờ <BR></td>
+                                <td>3 Người</td>
+                                <td>01/01/2019 <BR>
+                                    8:30 AM <BR></td>
+                                <td>227 Nguyễn Văn Cừ, Phường 4, Quận 5, TPHCM</td>
+                                <td>
+                                    <div class="badge badge-warning">Unpaid</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><a href="#">INV-48574</a></td>
+                                <td class="font-weight-600">Daenerys Targaryen</td>
+                                <td>01235678</td>
+                                <td>Giúp Việc <BR>
+                                    2 Giờ <BR></td>
+                                <td>3 Người</td>
+                                <td>01/01/2019 <BR>
+                                    8:30 AM <BR></td>
+                                <td>227 Nguyễn Văn Cừ, Phường 4, Quận 5, TPHCM</td>
+                                <td>
+                                    <div class="badge badge-success">Paid</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><a href="#">INV-76824</a></td>
+                                <td class="font-weight-600">Arya Stark</td>
+                                <td>01235678</td>
+                                <td>Giúp Việc <BR>
+                                    2 Giờ <BR></td>
+                                <td>3 Người</td>
+                                <td>01/01/2019 <BR>
+                                    8:30 AM <BR></td>
+                                <td>227 Nguyễn Văn Cừ, Phường 4, Quận 5, TPHCM</td>
+                                <td>
+                                    <div class="badge badge-warning">Unpaid</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><a href="#">INV-84990</a></td>
+                                <td class="font-weight-600">Cercei Lannister</td>
+                                <td>01235678</td>
+                                <td>Giúp Việc <BR>
+                                    2 Giờ <BR></td>
+                                <td>3 Người</td>
+                                <td>01/01/2019 <BR>
+                                    8:30 AM <BR></td>
+                                <td>227 Nguyễn Văn Cừ, Phường 4, Quận 5, TPHCM</td>
+                                <td>
+                                    <div class="badge badge-warning">Unpaid</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><a href="#">INV-87320</a></td>
+                                <td class="font-weight-600">Margaery Tyrell</td>
+                                <td>01235678</td>
+                                <td>Giúp Việc <BR>
+                                    2 Giờ <BR></td>
+                                <td>3 Người</td>
+                                <td>01/01/2019 <BR>
+                                    8:30 AM <BR></td>
+                                <td>227 Nguyễn Văn Cừ, Phường 4, Quận 5, TPHCM</td>
+                                <td>
+                                    <div class="badge badge-success">Paid</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><a href="#">INV-87321</a></td>
+                                <td class="font-weight-600">Robert Baratheon</td>
+                                <td>01235678</td>
+                                <td>Giúp Việc <BR>
+                                    2 Giờ <BR></td>
+                                <td>3 Người</td>
+                                <td>01/01/2019 <BR>
+                                    8:30 AM <BR></td>
+                                <td>227 Nguyễn Văn Cừ, Phường 4, Quận 5, TPHCM</td>
+                                <td>
+                                    <div class="badge badge-success">Paid</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><a href="#">INV-87322</a></td>
+                                <td class="font-weight-600">Tyrion Lannister</td>
+                                <td>01235678</td>
+                                <td>Giúp Việc <BR>
+                                    2 Giờ <BR></td>
+                                <td>3 Người</td>
+                                <td>01/01/2019 <BR>
+                                    8:30 AM <BR></td>
+                                <td>227 Nguyễn Văn Cừ, Phường 4, Quận 5, TPHCM</td>
+                                <td>
+                                    <div class="badge badge-success">Paid</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><a href="#">INV-87323</a></td>
+                                <td class="font-weight-600">Khal Drogo</td>
+                                <td>01235678</td>
+                                <td>Giúp Việc <BR>
+                                    2 Giờ <BR></td>
+                                <td>3 Người</td>
+                                <td>01/01/2019 <BR>
+                                    8:30 AM <BR></td>
+                                <td>227 Nguyễn Văn Cừ, Phường 4, Quận 5, TPHCM</td>
+                                <td>
+                                    <div class="badge badge-success">Paid</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><a href="#">INV-87324</a></td>
+                                <td class="font-weight-600">Oberyn Martell</td>
+                                <td>01235678</td>
+                                <td>Giúp Việc <BR>
+                                    2 Giờ <BR></td>
+                                <td>3 Người</td>
+                                <td>01/01/2019 <BR>
+                                    8:30 AM <BR></td>
+                                <td>227 Nguyễn Văn Cừ, Phường 4, Quận 5, TPHCM</td>
+                                <td>
+                                    <div class="badge badge-success">Paid</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><a href="#">INV-87325</a></td>
+                                <td class="font-weight-600">Tommem Baratheon</td>
+                                <td>01235678</td>
+                                <td>Giúp Việc <BR>
+                                    2 Giờ <BR></td>
+                                <td>3 Người</td>
+                                <td>01/01/2019 <BR>
+                                    8:30 AM <BR></td>
+                                <td>227 Nguyễn Văn Cừ, Phường 4, Quận 5, TPHCM</td>
+                                <td>
+                                    <div class="badge badge-danger">Cancel</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><a href="#">INV-87326</a></td>
+                                <td class="font-weight-600">Ramsay Bolton</td>
+                                <td>01235678</td>
+                                <td>Giúp Việc <BR>
+                                    2 Giờ <BR></td>
+                                <td>3 Người</td>
+                                <td>01/01/2019 <BR>
+                                    8:30 AM <BR></td>
+                                <td>227 Nguyễn Văn Cừ, Phường 4, Quận 5, TPHCM</td>
+                                <td>
+                                    <div class="badge badge-warning">Unpaid</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Kết thúc table Quản lí đơn hàng-->
+
+    <!--Dialog Thông tin sản phẩm-->
+    <div class="modal fade" id="sanPhamModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Thông tin đơn hàng</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!--Thông tin chung đơn hàng-->
+                    <div class="row">
+                        <div class="form-group col">
+                            <label class="col-md-12 control-label" for="dateStart"><h6>Ngày Bắt Đầu</h6></label>
+                            <div class="col-md-12">
+                                <input id="dateStart" data-date-inline-picker="false" data-date-open-on-focus="true" name="dateStart" type="date" placeholder="Ngày Bắt Đầu" class="form-control input-md" />
+                            </div>
+                        </div>
+                        <div class="form-group col">
+                            <label class="col-md-12 control-label" for="timeStart"><h6>Giờ Bắt Đầu</h6></label>
+                            <div class="col-md-12">
+                                <input id="timeStart" name="timeStart" type="time" placeholder="Giờ bắt đầu"
+                                    class="form-control input-md" />
+                            </div>
+                        </div>
+                        <div class="form-group col">
+                            <label class="col-md-12 control-label" for="dateEnd"><h6>Ngày Kết thúc</h6></label>
+                            <div class="col-md-12">
+                                <input id="dateEnd" data-date-inline-picker="false" data-date-open-on-focus="true" name="dateEnd" type="date" placeholder="Ngày Kết Thúc" class="form-control input-md" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-8">
+                            <label class="col-md-12 control-label" for="TenKhachHang"><h6>Tên khách hàng</h6></label>
+                            <div class="col-md-12">
+                                <input id="TenSanPham" name="TenKhachHang" type="text" placeholder="Tên khách hàng"
+                                    class="form-control input-md" required="">
+                            </div>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label class="col-md-12 control-label" for="SoDienThoai"><h6>Số điện thoại</h6></label>
+                            <div class="col-md-12">
+                                <input id="SoDienThoai" name="SoDienThoai" type="tel" placeholder="Số điện thoại"
+                                    class="form-control input-md">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-12">
+                            <label class="col-md-12 control-label" for="email"><h6>Email</h6></label>
+                            <div class="col-md-12">
+                                <input id="email" name="email" type="text" placeholder="Email"
+                                    class="form-control input-md" required="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-8">
+                            <label class="col-md-12 control-label" for="address"><h6>Đường</h6></label>
+                            <div class="col-md-12">
+                                <input id="address" name="address" type="text" placeholder="Đường"
+                                    class="form-control input-md" required="">
+                            </div>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label class="col-md-12 control-label" for="district"><h6>Quận</h6></label>
+                            <div class="col-md-12">
+                                <input id="district" name="district" type="text" placeholder="Quận"
+                                    class="form-control input-md" required="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col">
+                            <label class="col-md-12 control-label" for="SoNguoi"><h6>Số Người / Số Lượng</h6></label>
+                            <div class="col-md-12">
+                                <input id="SoNguoi" name="SoNguoi" type="number" placeholder="Số Người" class="form-control input-md">
+                            </div>
+                        </div>
+                        <div class="form-group col">
+                            <label class="col-md-12 control-label" for="TrangThai"><h6>Trạng Thái</h6></label>
+                            <div id="tt" class="row col-12 text-center">
+                                <!-- <div class="col-3">1</div>
+                                                                <div class="col-3">2</div>
+                                                                <div class="col-3">3</div>
+                                                                <div class="cols-3">4</div> -->
+                                <div id="tt" class="form-group col">
+                                    <input type="radio" name="status" value="processing" id="processing" />
+                                    <label for="processing" class="radiobutton status text-center">
+                                        <div id="dangXuLi" class="badge badge-info">Chờ Xử lí</div>
+                                    </label>
+                                </div>
+                                <!-- <div id="tt" class="form-group col">
+                                    <input type="radio" name="trangThai" value="2" id="tt2" />
+                                    <label for="tt2" class="radiobutton status text-center">
+                                        <div id="dangThucHien" class="badge badge-warning">Đang Thực Hiện</div>
+                                    </label>
+                                </div> -->
+                            </div>
+                            <!-- <div id="tt" class="row col-12 text-center">
+                                <div id="tt" class="form-group col">
+                                    <input type="radio" name="trangThai" value="3" id="tt3" />
+                                    <label for="tt3" class="radiobutton status text-center">
+                                        <div id="hoanThanh" class="badge badge-success">Hoàn Thành</div>
+                                    </label>
+                                </div>
+                                <div id="tt" class="form-group col">
+                                    <input type="radio" name="trangThai" value="4" id="tt4" />
+                                    <label for="tt4" class="radiobutton status text-center">
+                                        <div id="daHuy" class="badge badge-danger">Đã Huỷ</div>
+                                    </label>
+                                </div>
+                            </div> -->
+                        </div>
+                    </div>
+                    <!--Kết thúc Thông tin chung đơn hàng-->
+
+                    <!--Giúp việc Lau Dọn-->
+                    <div class="form-group">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <img src="images/gv.jpg" class="img-fluid text-center">
+                                    </div>
+                                    <div class="col-lg-4 flex-center" style="padding-right: 50px;">
+                                        <div class="form-group">
+                                            <h6>Giúp Việc Theo Giờ</h6>
+                                            <div class="row text-center">
+                                                <div class="col-md-2 button">
+                                                    <input type="radio" name="giupViecLauDon" value="2" id="gv2h" />
+                                                    <!-- onclick=
+                                                                                                                                                                                                                                                    "document.getElementById('gv2h').checked = false" -->
+                                                    <label for="gv2h" class="radiobutton">2h</label>
+                                                </div>
+                                                <div class="col-md-2 button">
+                                                    <input type="radio" name="giupViecLauDon" value="3" id="gv3h" />
+                                                    <label for="gv3h" class="radiobutton">3h</label>
+                                                </div>
+                                                <div class="col-md-2 button">
+                                                    <input type="radio" name="giupViecLauDon" value="4" id="gv4h" />
+                                                    <label for="gv4h" class="radiobutton">4h</label>
+                                                </div>
+                                                <div class="col-md-2 button">
+                                                    <input type="radio" name="giupViecLauDon" value="5" id="gv5h" />
+                                                    <label for="gv5h" class="radiobutton">5h</label>
+                                                </div>
+                                                <div class="col-md-2 button">
+                                                    <input type="radio" name="giupViecLauDon" value="6" id="gv6h" />
+                                                    <label for="gv6h" class="radiobutton">6h</label>
+                                                </div>
+                                                <div class="col-md-2 button">
+                                                    <input type="radio" name="giupViecLauDon" value="8" id="gv8h" />
+                                                    <label for="gv8h" class="radiobutton">8h</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <h6>Lau Dọn Nhà Cửa</h6>
+                                            <div class="row text-center">
+                                                <div class="col-md-2 button">
+                                                    <input type="radio" name="giupViecLauDon" value="2" id="ld2h" />
+                                                    <label for="ld2h" class="radiobutton">2h</label>
+                                                </div>
+                                                <div class="col-md-2 button">
+                                                    <input type="radio" name="giupViecLauDon" value="3" id="ld3h" />
+                                                    <label for="ld3h" class="radiobutton">3h</label>
+                                                </div>
+                                                <div class="col-md-2 button">
+                                                    <input type="radio" name="giupViecLauDon" value="4" id="ld4h" />
+                                                    <label for="ld4h" class="radiobutton">4h</label>
+                                                </div>
+                                                <div class="col-md-2 button">
+                                                    <input type="radio" name="giupViecLauDon" value="5" id="ld5h" />
+                                                    <label for="ld5h" class="radiobutton">5h</label>
+                                                </div>
+                                                <div class="col-md-2 button">
+                                                    <input type="radio" name="giupViecLauDon" value="6" id="ld6h" />
+                                                    <label for="ld6h" class="radiobutton">6h</label>
+                                                </div>
+                                                <div class="col-md-2 button">
+                                                    <input type="radio" name="giupViecLauDon" value="8" id="ld8h" />
+                                                    <label for="ld8h" class="radiobutton">8h</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Kết thúc giúp việc lau dọn-->
+
+                    <!--Sửa chữa bảo dưỡng máy lạnh-->
+                    <div class="form-group">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <img src="images/ml.jpg" class="img-fluid text-center">
+                                    </div>
+                                    <div class="col-lg-4 flex-center" style="padding-right: 50px;">
+                                        <div class="form-group">
+                                            <h6>Sữa Chữa Máy Lạnh</h6>
+                                            <div class="row text-center">
+                                                <div class="col-md-4 button">
+                                                    <input type="radio" name="suaChuaBaoDuong" value="1" id="sc1ml" />
+                                                    <!-- onclick=
+                                                                                                                                                                                                                                                    "document.getElementById('gv2h').checked = false" -->
+                                                    <label for="sc1ml" class="radiobutton">1 máy</label>
+                                                </div>
+                                                <div class="col-md-4 button">
+                                                    <input type="radio" name="suaChuaBaoDuong" value="2" id="sc2ml" />
+                                                    <label for="sc2ml" class="radiobutton">2 máy</label>
+                                                </div>
+                                                <div class="col-md-4 button">
+                                                    <input type="radio" name="suaChuaBaoDuong" value="3" id="sc3ml" />
+                                                    <label for="sc3ml" class="radiobutton">3 máy</label>
+                                                </div>
+                                                
+                                            </div>
+                                            <div class="row text-center">
+                                                <div class="col-md-4 button">
+                                                    <input type="radio" name="suaChuaBaoDuong" value="4" id="sc4ml" />
+                                                    <label for="sc4ml" class="radiobutton">4 máy</label>
+                                                </div>
+                                                <div class="col-md-4 button">
+                                                    <input type="radio" name="suaChuaBaoDuong" value="5" id="sc5ml" />
+                                                    <label for="sc5ml" class="radiobutton">5 máy</label>
+                                                </div>
+                                                <div class="col-md-4 button">
+                                                    <input type="radio" name="suaChuaBaoDuong" value="6" id="scml" />
+                                                    <label for="scml" class="radiobutton">Khác</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <h6>Bảo Dưỡng Máy Lạnh</h6>
+                                            <div class="row text-center">
+                                                <div class="col-md-4 button">
+                                                    <input type="radio" name="suaChuaBaoDuong" value="1" id="bd1m" />
+                                                    <label for="bd1m" class="radiobutton">1 máy</label>
+                                                </div>
+                                                <div class="col-md-4 button">
+                                                    <input type="radio" name="suaChuaBaoDuong" value="2" id="bd2m" />
+                                                    <label for="bd2m" class="radiobutton">2 máy</label>
+                                                </div>
+                                                <div class="col-md-4 button">
+                                                    <input type="radio" name="suaChuaBaoDuong" value="3" id="bd3m" />
+                                                    <label for="bd3m" class="radiobutton">3 máy</label>
+                                                </div>
+                                                
+                                            </div>
+                                            <div class="row text-center">
+                                                <div class="col-md-4 button">
+                                                    <input type="radio" name="suaChuaBaoDuong" value="4" id="bd4m" />
+                                                    <label for="bd4m" class="radiobutton">4 máy</label>
+                                                </div>
+                                                <div class="col-md-4 button">
+                                                    <input type="radio" name="suaChuaBaoDuong" value="5" id="bd5m" />
+                                                    <label for="bd5m" class="radiobutton">5 máy</label>
+                                                </div>
+                                                <div class="col-md-4 button">
+                                                    <input type="radio" name="suaChuaBaoDuong" value="6" id="bdm" />
+                                                    <label for="bdm" class="radiobutton">Khác</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        
+                                    </div>
+                                    <div class="col-lg-4 flex-center" >
+                                        <div class="form-group">
+                                            <h6>Tháo/Lắp Máy Lạnh</h6>
+                                            <div class="row text-center">
+                                                <div class="col-md-4 button">
+                                                    <input type="radio" name="suaChuaBaoDuong" value="1" id="tl1ml" />
+                                                    <!-- onclick=
+                                                                                                                                                                                                                                                                                            "document.getElementById('gv2h').checked = false" -->
+                                                    <label for="tl1ml" class="radiobutton">1 máy</label>
+                                                </div>
+                                                <div class="col-md-4 button">
+                                                    <input type="radio" name="suaChuaBaoDuong" value="2" id="tl2ml" />
+                                                    <label for="tl2ml" class="radiobutton">2 máy</label>
+                                                </div>
+                                                <div class="col-md-4 button">
+                                                    <input type="radio" name="suaChuaBaoDuong" value="3" id="tl3ml" />
+                                                    <label for="tl3ml" class="radiobutton">3 máy</label>
+                                                </div>
+                                    
+                                            </div>
+                                            <div class="row text-center">
+                                                <div class="col-md-4 button">
+                                                    <input type="radio" name="suaChuaBaoDuong" value="4" id="tl4ml" />
+                                                    <label for="tl4ml" class="radiobutton">4 máy</label>
+                                                </div>
+                                                <div class="col-md-4 button">
+                                                    <input type="radio" name="suaChuaBaoDuong" value="5" id="tl5ml" />
+                                                    <label for="tl5ml" class="radiobutton">5 máy</label>
+                                                </div>
+                                                <div class="col-md-4 button">
+                                                    <input type="radio" name="suaChuaBaoDuong" value="6" id="tlml" />
+                                                    <label for="tlml" class="radiobutton">Khác</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Kết thúc sửa chữa bảo dưỡng máy lạnh-->
+
+                    <!--Sữa chữa điện nước-->
+                    <div class="form-group">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <img src="images/dn.jpg" class="img-fluid text-center">
+                                    </div>
+                                    <div class="col-lg-6 flex-center">
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-md-4 button">
+                                                    <input type="radio" name="suaChuaDienNuoc" value="1" id="htd" />
+                                                    <!-- onclick=
+                                                                                                                                                                                                                                                                            "document.getElementById('gv2h').checked = false" -->
+                                                    <label for="htd" class="radiobutton">Hệ thống điện</label>
+                                                </div>
+                                                <div class="col-md-4 button">
+                                                    <input type="radio" name="suaChuaDienNuoc" value="2" id="htn" />
+                                                    <label for="htn" class="radiobutton">Hệ thống nước</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Kết thúc sửa chữa điện nước-->
+
+                    <!--Sửa chữa-->
+                    <div class="form-group">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <img src="images/gd.jpg" class="img-fluid text-center">
+                                        </div>
+                                        <div class="col-lg-9 flex-center">
+                                            <div class="form-group">
+                                                <h6>Sửa chữa gia đụng</h6>
+                                                <div class="row text-center">
+                                                    
+                                                    <div class="col-md-3 button">
+                                                        <input type="radio" name="suaChua" value="1" id="scbt" />
+                                                        <!-- onclick=
+                                                                                                                                                                                                                                                                                "document.getElementById('gv2h').checked = false" -->
+                                                        <label for="scbt" class="radiobutton">Bình tắm nóng/lạnh</label>
+                                                    </div>
+                                                    <div class="col-md-3 button">
+                                                        <input type="radio" name="suaChua" value="2" id="scmg" />
+                                                        <label for="scmg" class="radiobutton">Sửa chữa máy giặt</label>
+                                                    </div>
+                                                    <div class="col-md-3 button">
+                                                            <input type="radio" name="suaChua" value="3" id="sctl" />
+                                                            <label for="sctl" class="radiobutton">Sửa chữa tủ lạnh</label>
+                                                    </div>
+                                                    <div class="col-md-3 button">
+                                                            <input type="radio" name="suaChua" value="4" id="sctv" />
+                                                            <label for="sctv" class="radiobutton">Sửa chữa tivi</label>
+                                                    </div>
+                                                    
+                                                </div>
+                                                <div class="row text-center">
+                                                    
+                                                        <div class="col-md-3 button">
+                                                            <input type="radio" name="suaChua" value="5" id="sclnvs" />
+                                                            <!-- onclick=
+                                                                                                                                                                                                                                                                                    "document.getElementById('gv2h').checked = false" -->
+                                                            <label for="sclnvs" class="radiobutton">Lò nướng/vi sóng</label>
+                                                        </div>
+                                                        <div class="col-md-3 button">
+                                                            <input type="radio" name="suaChua" value="6" id="scbn" />
+                                                            <label for="scbn" class="radiobutton">Bếp nấu</label>
+                                                        </div>
+                                                        <div class="col-md-3 button">
+                                                                <input type="radio" name="suaChua" value="7" id="scqm" />
+                                                                <label for="scqm" class="radiobutton">Quạt máy</label>
+                                                        </div>
+                                                        <div class="col-md-3 button">
+                                                                <input type="radio" name="suaChua" value="8" id="scgd" />
+                                                                <label for="scgd" class="radiobutton">Khác</label>
+                                                        </div>
+                                                        
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <!--Kết thúc sửa chữa-->
+                </div>
+    
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="btnLuu">Lưu thông tin đơn hàng</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" id="btnHuy">Huỷ thao tác</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Kết thúc Dialog Thông tin sản phẩm-->
+
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  
+    <!--Note: Dùng để xếp data theo thứ tự tăng/giảm-->
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="js/mdb.js"></script>
+    <!-- MDBootstrap Datatables  -->
+    <script type="text/javascript" src="js/addons/datatables.min.js"></script>
+    <!--Hết Note-->
+
+    <script>
+        //Dùng để xếp data theo thứ tự tăng/giảm
+        $(document).ready(function () {
+            //$('#dtBasicExample').DataTable();
+            $('#dtBasicExample').dataTable({
+                //Link document Việt hoá: https://datatables.net/reference/option/language
+                "language": {
+                    "lengthMenu": "Hiển thị _MENU_ mục",
+                    "search": "Tìm kiếm:",
+                    "info": "Hiển thị _START_ đến _END_ trên tổng số _TOTAL_ mục",
+                    "paginate": {
+                        "previous": "Trước",
+                        "next": "Sau",
+                    }
+                }
+            });
+            $('.dataTables_length').addClass('bs-select');
+        });
+    </script>
+
+    </body>
+</html>

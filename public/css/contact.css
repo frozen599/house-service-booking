@@ -1,0 +1,28 @@
+div.banner-intro{
+    background: url("../images/bg-contact.jpg") no-repeat;
+    background-size: 100% 100%;
+}
+
+div.contact-content{
+    padding-left: 10%;
+}
+
+span.text-c{
+    display: block;
+    margin-top: 2em;
+    margin-bottom: 2em;
+}
+
+div.contact-content h2{
+    color:  #fb6e43;
+    font-weight: bold;
+}
+
+div.contact-content p, div.contact-content a{
+    font-size: 1.2em;
+}
+
+label.c-red{
+    color: #fb6e43;
+}
+

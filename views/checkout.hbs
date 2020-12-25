@@ -1,0 +1,137 @@
+<!-- Main -->
+
+<!-- Process Steps -->
+{{>steps}}
+
+<div class="container my-3">
+    <div class="row">
+        <div class="col-md-4 order-md-2 mb-4">
+            <h4 class="d-flex justify-content-between align-items-center mb-3">
+                <span class="text-muted">Your cart</span>
+                <span class="badge badge-secondary badge-pill">{{cartItemCount}}</span>
+            </h4>
+            <ul class="list-group mb-3">
+                {{#each items}}
+                <li class="list-group-item d-flex justify-content-between lh-condensed">
+                    <div>
+                        <h6 class="my-0">{{quantity}} x {{item.title}}</h6>
+                        <small class="text-muted">{{item.dateStart}} at </small>
+                        <small class="text-muted">{{item.timeStart}} -> </small>
+                        <small class="text-muted">{{item.dateEnd}}</small>
+                    </div>
+                    <span class="text-muted">{{price}}VNĐ</span>
+
+                </li>
+                {{/each}}
+                <li class="list-group-item d-flex justify-content-between">
+                    <span>Total (VND)</span>
+                    <strong>{{totalPrice}} VND</strong>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-8 order-md-1">
+            <h4 class="mb-3">Shipping address</h4>
+            <form class="needs-validation" method="post" action="/cart/payment">
+                {{!-- <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="firstName">First name</label>
+                        <input type="text" name="firstname" class="form-control" id="firstName" placeholder="" value=""
+                            required>
+                        <div class="invalid-feedback">
+                            Valid first name is required.
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="lastName">Last name</label>
+                        <input type="text" name="lastname" class="form-control" id="lastName" placeholder="" value=""
+                            required>
+                        <div class="invalid-feedback">
+                            Valid last name is required.
+                        </div>
+                    </div>
+                </div> --}}
+
+                <div class="mb-3">
+                    <label for="name">Name</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-user"></i></span>
+                        </div>
+                        <input type="text" name="name" class="form-control" id="name"
+                            placeholder="Nguyen Van A" required>
+                        <div class="invalid-feedback" style="width: 100%;">
+                            Your name is required.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="email">Email</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">@</span>
+                        </div>
+                        <input type="email" name="email" class="form-control" id="email"
+                            placeholder="you@example.com" required>
+                        <div class="invalid-feedback" style="width: 100%;">
+                            Your email is required.
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="phone">Phone</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-phone"></i></span>
+                        </div>
+                        <input type="text" name="phone" class="form-control" id="phone" placeholder="Phone number"
+                            required>
+                        <div class="invalid-feedback" style="width: 100%;">
+                            Your phone number is required.
+                        </div>
+                    </div>
+                </div>
+
+                {{!-- <div class="mb-3">
+                    <label for="address">Address</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-road"></i></span>
+                        </div>
+                        <input type="text" name="address" class="form-control" id="address" placeholder="1234 Main St"
+                            required>
+                        <div class="invalid-feedback">
+                            Please enter your shipping address.
+                        </div>
+                    </div>
+                </div> --}}
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="address">Address</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fa fa-road"></i></span>
+                            </div>
+                            <input type="text" name="address" class="form-control" id="address" placeholder="" value=""
+                                required>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="district">District</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fa fa-street-view"></i></span>
+                            </div>
+                            <input type="text" name="district" class="form-control" id="district" placeholder=""
+                                value="" required>
+                        </div>
+                    </div>
+                </div>
+
+                <hr class="mb-4">
+                <button class="btn btn-success btn-lg btn-block" type="submit">Continue to checkout</button>
+            </form>
+        </div>
+    </div>
+</div>

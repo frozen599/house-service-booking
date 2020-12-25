@@ -1,0 +1,302 @@
+<!--Bắt đàu cho Banner-->
+<div class="jumbotron text-center banner">
+    <div class="slogan">
+        <h1>Hãy để chúng tôi giúp bạn</h1>
+        <p>Tìm người giúp việc, sửa chữa các thiết bị trong gia đình…</p>
+    </div>
+    <div class="container search">
+        <form method="POST" class="form-inline" action = '/service/search'>
+            <div class="row">
+                <div class="col-xs-6 col-md-3 form-item">
+                    <div class="dropdown">
+                        <div class="dropdown-toggle" data-toggle="dropdown">
+                            <span id="serviceType_choose" class="k-input">Chọn dịch vụ</span>
+                            <input id="ServiceType_choose" type="hidden">
+                            <button type="button">
+                                <span class="caret"></span>
+                            </button>
+                        </div>
+                        <ul id="serviceType_choose" class="dropdown-menu">
+                            {{!-- <li>Giúp việc theo giờ - Dọn dẹp vệ sinh</li>
+                            <li>Vệ sinh máy lạnh - Sửa chữa máy lạnh</li>
+                            <li>Sữa chữa điện nước - Lắp đặt điện nước</li>
+                            <li>Sửa chữa thiết bị gia dụng</li> --}}
+                            {{#each serviceTypes}}
+                            <li class='serviceType/{{ServiceTypeId}}' data-id={{id}} data-string='{{title}}'>{{title}}</li>
+                            {{/each}}
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-xs-6 col-md-4 form-item">
+                    <div class="dropdown">
+                        <div class="dropdown-toggle" data-toggle="dropdown">
+                            <span id="services_search" class="k-input">Dịch vụ</span>
+                            <input type="hidden" id="service_choose" name="id">
+                            <button type="button">
+                                <span class="caret"></span>
+                            </button>
+                        </div>
+                        <ul id="services_search" class="dropdown-menu">
+                            {{!-- <li>01 Người làm</li> --}}
+                            {{#each services}}
+                                <li class="ServiceType_{{ServiceTypeId}}" data-ServiceTypeId="{{ServiceTypeId}}" data-id={{id}} data-string='{{title}}'>{{title}}</li>
+                            {{/each}}
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-xs-6 col-md-2 form-item">
+                    <div class="dropdown">
+                        <div class="dropdown-toggle" data-toggle="dropdown">
+                            <span id="hour_search" class="k-input">Giờ bắt đầu</span>
+                            <input type="hidden" id="hour_choose" name="timeStart">
+                            <button type="button">
+                                <span class="caret"></span>
+                            </button>
+                        </div>
+                        <ul id="hour_search" class="dropdown-menu">
+                            <li data-string="06:00">06:00</li>
+                            <li data-string="07:00">07:00</li>
+                            <li data-string="08:00">08:00</li>
+                            <li data-string="09:00">09:00</li>
+                            <li data-string="10:00">10:00</li>
+                            <li data-string="11:00">11:00</li>
+                            <li data-string="12:00">12:00</li>
+                            <li data-string="13:00">13:00</li>
+                            <li data-string="14:00">14:00</li>
+                            <li data-string="15:00">15:00</li>
+                            <li data-string="16:00">16:00</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-xs-6 col-md-2 form-item">
+                    <input name="dateStart" id="date_choose" type="date" placeholder="Ngay lam" class="k-input" style="cursor: pointer;"
+                        style="height: 90%">
+                </div>
+                <div class="col-xs-12 col-md-1 form-item-btn">
+                    <input type="submit" value="Search" style="background:none;">
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<!--Kết thúc phần Banner-->
+
+<!-- Form tạo Service Type dành cho Admin -->
+{{#if isAdmin}}
+<div class="container text-center">
+    <button id="btn-create-ServiceType" name="btn-create-ServiceType" class="btn btn-primary">Create Service
+        Type</button>
+</div>
+
+<form id="form-ServiceType" class="form-horizontal" action="/servicetype" method="POST" enctype="multipart/form-data">
+    <fieldset>
+
+        <!-- Form Name -->
+        <legend class="text-center">Add Service Types</legend>
+
+
+        <!-- File Button -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="imagepath-serviceType">Image Path</label>
+            <div class="col-md-4">
+                <input id="imagepath-serviceType" name="myImage" class="input-file" type="file">
+            </div>
+        </div>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="title">Title</label>
+            <div class="col-md-5">
+                <input id="title" name="title" type="text" placeholder="Tile of Service Types"
+                    class="form-control input-md" required="">
+
+            </div>
+        </div>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="des1">Describe 1</label>
+            <div class="col-md-5">
+                <input id="des1" name="des1" type="text" placeholder="Describe 1 of ServiceType"
+                    class="form-control input-md">
+
+            </div>
+        </div>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="des2">Describe 2</label>
+            <div class="col-md-5">
+                <input id="des2" name="des2" type="text" placeholder="Describe 2 of ServiceType"
+                    class="form-control input-md">
+
+            </div>
+        </div>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="des3">Describe 3</label>
+            <div class="col-md-5">
+                <input id="des3" name="des3" type="text" placeholder="Describe 3 of ServiceType"
+                    class="form-control input-md">
+
+            </div>
+        </div>
+
+        <!-- Button (Double) -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="submit"></label>
+            <div class="col-md-8">
+                <button id="submit" name="submit" class="btn btn-success">Submit</button>
+                <button id="cancel-create-ServiceType" name="cancel" class="btn btn-danger">Cancel</button>
+            </div>
+        </div>
+
+    </fieldset>
+</form>
+{{/if}}
+
+<!--Bắt đầu phần dịch vụ-->
+<div class="container text-center">
+    <div class="services">
+        <div class="describe">
+            <h1>DỊCH VỤ</h1>
+            <p>CHÚNG TÔI CÓ THỂ LÀM NHIỀU VIỆC CHO BẠN</p>
+        </div>
+        <div class="textTitle">
+            <span>
+                EZ-LIFE là ứng dụng đặt Dịch vụ Giúp việc theo giờ, Dọn dẹp vệ sinh, Vệ sinh máy lạnh, Sửa chữa điện
+                nước, Sửa chữa thiết bị gia dụng..
+                giúp khách hàng có thể tìm được người cung cấp dịch vụ một cách nhanh chóng, tiện lợi!
+            </span>
+        </div>
+        <div class="row">
+            {{#each serviceTypes}}
+            <div class="col-sm-3 item">
+                <a href="/servicetype/{{id}}">
+                    <div class="image"><img src="{{imagepath}}" alt="Giúp việc lau dọn" /></div>
+                    <div class="title">{{title}}</div>
+                    <div class="des">
+                        <span>{{des1}}</span>
+                        <br>
+                        <span>{{des2}}</span>
+                        <br>
+                        <span>{{des3}}</span>
+                        <br>
+                        ....
+                    </div>
+                </a>
+            </div>
+            {{/each}}
+            {{!-- <div class="col-sm-3 item">
+                <a href="/services/maylanh">
+                    <div class="image"><img src="/images/ml.jpg" alt="Giúp việc lau dọn" /></div>
+                    <div class="title">MÁY LẠNH</div>
+                    <div class="des">
+                        <span>Bảo dưỡng vệ sinh</span>
+                        <br>
+                        <span>Tư vấn lắp đặt mới</span>
+                        <br>
+                        <span>Sửa chữa thay mới linh kiện</span>
+                        <br>
+                        ....
+                    </div>
+                </a>
+            </div>
+            <div class="col-sm-3 item">
+                <a href="/services/diennuoc">
+                    <div class="image"><img src="images/dn.jpg" alt="Giúp việc lau dọn" /></div>
+                    <div class="title">ĐIỆN NƯỚC</div>
+                    <div class="des">
+                        <span>Sửa chữa hệ thống điện</span>
+                        <br>
+                        <span>Sửa chữa hệ thống nước</span>
+                        <br>
+                        <span>Thiết kế thi công mới</span>
+                        <br>
+                        ....
+                    </div>
+                </a>
+            </div>
+            <div class="col-sm-3 item">
+                <a href="/services/giadung">
+                    <div class="image"><img src="images/gd.jpg" alt="Giúp việc lau dọn" /></div>
+                    <div class="title">THIẾT BỊ GIA DỤNG</div>
+                    <div class="des">
+                        <span>Sửa chữa ti vi</span>
+                        <br>
+                        <span>Sửa chữa tủ lạnh</span>
+                        <br>
+                        <span>Sửa chữa máy giặt</span>
+                        <br>
+                        ....
+                    </div>
+                </a>
+            </div> --}}
+        </div>
+    </div>
+</div>
+<!--Kết thúc phần dịch vụ-->
+
+<!--Bắt đầu cho Banner 2-->
+<div class="container-fluid" style="margin-top: 4em;">
+    <img src="/images/bg-foot.jpg" alt="paradise" class="img-responsive" />
+</div>
+<!--Kết thúc Banner 2-->
+
+<!--Bắt đầu giải thích-->
+<div class="container text-center">
+    <div class="services">
+        <div class="describe">
+            <h1>TẠI SAO EZ-LIFE?</h1>
+            <p>VÌ CHÚNG TÔI LUÔN Ở ĐÓ MỖI KHI BẠN CẦN</p>
+        </div>
+        <div class="textTitle why-textTitle">
+            <span>
+                Tất cả đều trở nên đơn giản với EZ-LIFE vì chúng tôi có nhiều thứ bạn cần. Dịch vụ của chúng tôi tuy
+                đa dạng nhưng tất cả đều được phục vụ một cách hoàn hảo nhất
+            </span>
+        </div>
+    </div>
+</div>
+<!--Kết thúc giải thích-->
+<!--Bắt đầu list lí do-->
+<div class="container">
+    <div class="row item-w">
+        <div class="col-xs-4 text-right">
+            <span class="glyphicon glyphicon-ok-circle"></span>
+        </div>
+        <div class="col-xs-8">
+            <h3>Thuận tiện</h3>
+            <p>Chỉ với vài lần nhấp chuột, yêu cầu của bạn đã được đáp ứng</p>
+        </div>
+    </div>
+    <div class="row item-w">
+        <div class="col-xs-4 text-right">
+            <span class="glyphicon glyphicon-ok-circle"></span>
+        </div>
+        <div class="col-xs-8">
+            <h3>Tin cậy</h3>
+            <p>Người lao động được kiểm tra và xác minh nhân thân rõ ràng</p>
+        </div>
+    </div>
+    <div class="row item-w">
+        <div class="col-xs-4 text-right">
+            <span class="glyphicon glyphicon-ok-circle"></span>
+        </div>
+        <div class="col-xs-8">
+            <h3>Chất lượng</h3>
+            <p>Người lao động đã được qua kiểm tra tay nghề và đào tạo kỹ năng</p>
+        </div>
+    </div>
+    <div class="row item-w">
+        <div class="col-xs-4 text-right">
+            <span class="glyphicon glyphicon-ok-circle"></span>
+        </div>
+        <div class="col-xs-8">
+            <h3>Minh bạch</h3>
+            <p>Cơ chế ghi nhận và tính giá hợp lý, minh bạch</p>
+        </div>
+    </div>
+</div>
+<!--Kết thúc list lí do-->

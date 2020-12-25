@@ -1,0 +1,47 @@
+div.banner-intro{
+    background: url("../images/bg3.jpg") no-repeat;
+    background-size: 100% 100%;
+}
+
+
+
+div.Title{
+    border-bottom: 1px solid #000;
+}
+
+div.Title p, div.Address, span.glyphicon, div#worker_number, div#total{
+    font-size: 18px;
+    padding: 0.2em;
+}
+
+div.Title h3.type, span#time-start, div.right h3,div.right span.glyphicon{
+    color: #ff6c45;
+}
+
+div#worker_number span{
+    font-size: 2em;
+    color: #ff6c45;
+}
+
+div#total h2{
+    color: #b3000a;
+}
+
+form.Order-review-form input[type="button"]{
+    background-color: #b3000a;
+    border: none;
+    width: 100%;
+    color: #fff;
+    font-size: 1.5em;
+    padding: 0.3em;
+    margin-bottom: 2em;
+}
+
+div.right{
+    margin-bottom: 2em;
+    padding-left: 0.5em;
+}
+
+div.left span.glyphicon, div.left span#time-start{
+    font-size: 2em;
+}

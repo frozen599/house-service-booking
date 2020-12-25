@@ -1,0 +1,163 @@
+<div class="container">
+
+    <div class="card" style=""> </div>
+    <div class="row" style="">
+        <div class=" col-sm-4">
+            <h3>
+                <div class="card" style="height: 450px;">
+                    <div class="card-body" style="text-align: center">
+                        <h4 class="card-title">Kết quả hôm nay</h4>
+                        <div style="display: inline-block;">
+                            <!--TỔNG ĐƠN HÀNG CHART-->
+                            <canvas id="donHangChart" style="">
+                            </canvas>
+                        </div>
+                    </div>
+                </div>
+            </h3>
+        </div>
+
+        <div class="col-sm-8">
+            <h3>
+                <div class="card" style="height: 450px;">
+                    <div class="card-body" style="align-items: center;">
+                        <h4 class="card-title" style="text-align: center">Top {{top}} dịch vụ</h4>
+                        <canvas id="10dichVuChart">
+                        </canvas>
+                    </div>
+                </div>
+            </h3>
+        </div>
+    </div>
+    <div class="col-12 text-right">
+
+        <button onclick="window.location.replace('/users/admin/chart/export')" type="button" class=" btn btn-primary mt-4 mb-4">Xuất ra file
+            excel</button>
+    </div>
+    <div class="card" style="">
+        <div class="card-body">
+            <h4 class="card-title">Doanh thu tháng {{s_month}}</h4>
+            <!--Bieu do-->
+            <canvas id="doanhThuThangNayChart" style="height:50; width: 50;"></canvas>
+
+        </div>
+    </div>
+
+</div> <!-- /container -->
+
+<script>
+    exportToExcelFile = () => {
+        	$.ajax({
+				type: "post",
+				url: "/chart/export",
+				data: {
+					id: '1'
+				},
+				dataType: "dataType",
+				success: function (response) {
+					location.reload();
+				}
+			});
+    }
+    var data = {{{ data }}};
+    var top_data = {{{ top_data }}};
+    var month_data = {{{ month_data }}};
+    console.log("DATA SERVICES: ", data.services);
+    //TỔNG QUAN ĐƠN HÀNG HÔM NAY CHART
+    var ctxD = document.getElementById("donHangChart").getContext('2d');
+    var myLineChart = new Chart(ctxD, {
+        type: 'doughnut',
+        data: {
+            labels: data.services,
+            datasets: [{
+                data: data.prices,
+                backgroundColor: ["#F7464A", "#46BFBD", "#FDB45C", "#949FB1", "#4D5360"],
+                hoverBackgroundColor: ["#FF5A5E", "#5AD3D1", "#FFC870", "#A8B3C5", "#616774"]
+            }]
+        },
+        options: {
+            legend: {
+                display: false
+            },
+            responsive: true
+        }
+    });
+
+    //TỔNG QUAN TOP 10 DỊCH VỤ CHẠRT
+    new Chart(document.getElementById("10dichVuChart"), {
+        type: "horizontalBar",
+        data: {
+            labels: top_data.services,
+            datasets: [{
+                label: "My First Dataset",
+                data: top_data.prices,
+                fill: false,
+                backgroundColor: ["rgba(255, 99, 132, 0.2)", "rgba(255, 159, 64, 0.2)",
+                    "rgba(255, 205, 86, 0.2)", "rgba(75, 192, 192, 0.2)", "rgba(54, 162, 235, 0.2)",
+                    "rgba(153, 102, 255, 0.2)", "rgba(201, 203, 207, 0.2)"
+                ],
+                borderColor: ["rgb(255, 99, 132)", "rgb(255, 159, 64)", "rgb(255, 205, 86)",
+                    "rgb(75, 192, 192)", "rgb(54, 162, 235)", "rgb(153, 102, 255)", "rgb(201, 203, 207)"
+                ],
+                borderWidth: 1
+            }]
+        },
+        "options": {
+            legend: {
+                display: false
+            },
+            scales: {
+                xAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+
+
+    // TỔNG QUAN DOANH THU CHART
+    var ctx = document.getElementById("doanhThuThangNayChart").getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: month_data.services,
+            datasets: [{
+                label: '# of Votes',
+                data: month_data.prices,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            legend: {
+                display: false
+            },
+            responsive: true,
+            mainAspectRatio: true,
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+</script>

@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Biểu đồ</title> 
+	<!--Thư viện hỗ trợ-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
+
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/admin_style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <!-- MDBootstrap Datatables: Dùng để xếp data theo thứ tự tăng/giảm  -->
+    <link href="css/addons/datatables.min.css" rel="stylesheet">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <style>
+  
+ #chart {
+     width: 400px;
+     height: 300px;
+ }
+  .graphs-display {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+        justify-content: space-between;
+        align-content: left;
+      }
+      .graphs-display-title{
+        font-weight: bold;
+        padding: 5px 10px;
+        text-align: left;
+        border-bottom: 1px groove red;
+      }
+      .graphs-display-item{
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row;
+        justify-content: space-between;
+        align-content: center;
+      }
+      .input-text, select, textarea {
+  font-size: 16px;
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-top: 6px;
+  margin-bottom: 16px;
+  resize: vertical;
+}
+
+.input-text {
+  background-color: rgb(199, 218, 199);
+  color: black;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.input-text:hover {
+  background-color: #edf8ee;
+}
+.select-date{
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+#date-start,#date-end,#date-get{
+  margin:10px;
+  margin-right: 20px;
+  background: #f2f2f2;
+  padding: 5px 10px;
+  border: 1px groove red;
+}
+.btn-get{
+  text-align: center;
+  background-color: #4CAF50 !important;
+  color: white;
+}
+
+#customers {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#customers td, #customers th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#customers tr:nth-child(even){background-color: #f2f2f2;}
+
+#customers tr:hover {background-color: #ddd;}
+
+#customers th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #4CAF50;
+  color: white;
+}
+.report>h3{
+  font-size: 28px;
+}
+.report>h4{
+  
+  font-size: 20px;
+}
+.report{
+  text-align: center;
+}
+
+
+  </style>
+    <script src="js/basic.js"></script>
+</head>
+<body>
+
+        <!--Bắt đầu thanh menu-->
+        <div class="container-fluid" id="navbarC">
+            <nav class="navbar navbar-expand-sm navbar-light container">
+               <a class="navbar-brand" href="index.html">EZ-LIFE</a>
+                <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId"
+                    aria-controls="collapsibleNavId" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            
+                <div class="collapse navbar-collapse justify-content-end" id="collapsibleNavId">
+                    <ul class="navbar-nav mt-2 mt-lg-0">
+                        <li><a href="#" id="nav-worker">Đơn Hàng</a></li>
+                        <li><a href="#" class="active">Báo cáo</a></li>
+                        <li><a href="#">Tài Khoản</a></li>
+                        <li><a href="#" onclick="doForm('modal-login','modal-sign-up')"><span class="glyphicon glyphicon-log-out"></span> Đăng xuất</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+        <!--Kết thúc thanh menu-->
+
+        <div class="container-fluid">
+          <div class="row">
+            <!--optional column-->
+            <div class="col-md-2">
+              <div class="left-column" style="padding-top: 2em;">
+                <h3><strong>Xem theo:</strong></h3>
+                <div class="option" style="padding-left: 10%;">
+                  <label><input type="radio" id="cbChart" name="graph" value="chart" onclick="chooseGraph()" checked> Chart</label>
+                  <br>
+                  <label><input type="radio" id="cbTable" name="graph" value="table" onclick="chooseGraph()"> Table</label>
+                  <br>
+                </div>
+              </div>
+            </div>
+            <!--End of optional column-->
+            <!--Graph-->
+            <div class="col-md-10">
+              <div class="right-column">
+                <!--Choose date-->
+                <div class="graphs-display" id="column_chart">
+                    <h3 class="graphs-display-title text-center">Xin chọn thông tin hiển thị biểu đồ</h3>
+                    <div class="select-date">
+                      <div>
+                        <label for="date-start">Chọn ngày bắt đầu</label>
+                        <input type="date" name="date-start" id="date-start">
+                      </div>
+                      <div> 
+                        <label for="date-end">Chọn ngày kết thúc</label>
+                        <input type="date" name="date-end" id="date-end">
+                      </div>
+                      <input type="button" class=" btn-get" id="date-get" onclick="drawChart()" value="Xác nhận">
+                    </div>
+
+                    <div>
+                        <canvas id="chart" ></canvas>
+                        <canvas id="chart1" ></canvas>
+                        <canvas id="chart2" ></canvas>
+                        <canvas id="chart3" ></canvas>
+                    </div>
+                </div>
+                <!--End of choos date-->
+
+                <!--Drawing graph-->
+
+                  <div class="report" id="table_chart" style="display: none;">
+                    <h3>Bảng báo cáo tháng 4 </h3>
+                    <h4>Từ ngày 24-03-2019 - 24-04-2019 </h4>
+                    <table id="customers" >
+                      <tr>
+                        <th>Time</th>
+                        <th>Sub-total</th>
+                        <th>Discount </th>
+                        <th>Revenus</th>
+                        <th>Total cost </th>
+                        <th>Gross-profit</th>
+                      </tr>
+                      <tbody >
+                    
+                      </tbody>
+                    </table>
+                    <div  onload="loadTable()"></div>
+
+                    <script>
+                      // auto load 
+                        var table = document.getElementById("customers").getElementsByTagName("tbody")[0];
+                        for(var i=0;i<10;i++){
+                        var row = table.insertRow(1);
+                        var cell1 = row.insertCell(0);
+                        var cell2 = row.insertCell(1);
+                        var cell3 = row.insertCell(2);
+                        var cell4 = row.insertCell(3);
+                        var cell5 = row.insertCell(4);
+                        var cell6 = row.insertCell(5);
+                        cell1.innerHTML = "31/10/2019";
+                        cell2.innerHTML = "11,530,000";
+                        cell3.innerHTML="-10,000,000";
+                        cell4.innerHTML="4,000,000";
+                        cell5.innerHTML="100,000,000";
+                        cell6.innerHTML="90,000,000";
+                    
+                      
+                      }
+                    </script>
+                    </div>
+                <!--End of drawing graph-->
+              </div>
+            </div>
+            <!--End of graph-->
+          </div>
+        </div>
+
+    <script>
+        function drawChart(){
+        console.log("in function");
+        let myChart = document.getElementById('chart').getContext('2d');
+        let dateStart = document.getElementById("date-start").value;
+        let dateEnd = document.getElementById("date-end").value;
+        if(dateStart=='' || dateEnd==''){
+          alert("Bạn hãy nhập ngày bắt đầu và kết thúc!");
+          return;
+        }
+        let title = "Biểu đồ từ ngày "+dateStart
+        + " đến " + dateEnd;
+        console.log(title);
+        // Global Options
+        Chart.defaults.global.defaultFontFamily = 'Lato';
+        Chart.defaults.global.defaultFontSize = 18;
+        Chart.defaults.global.defaultFontColor = '#777';
+    
+        let massPopChart = new Chart(myChart, {
+          type:'bar', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
+          data:{
+            //   Các tên hiển thị
+            labels:['Boston', 'Worcester', 'Springfield', 'Lowell', 'Cambridge', 'New Bedford'],
+            datasets:[{
+              label:'Population',
+              data:[
+                617594,
+                181045,
+                153060,
+                106519,
+                105162,
+                95072
+              ],
+              //backgroundColor:'green',
+              backgroundColor:[
+                'rgba(255, 99, 132, 0.6)',
+                'rgba(54, 162, 235, 0.6)',
+                'rgba(255, 206, 86, 0.6)',
+                'rgba(75, 192, 192, 0.6)',
+                'rgba(153, 102, 255, 0.6)',
+                'rgba(255, 159, 64, 0.6)',
+                'rgba(255, 99, 132, 0.6)'
+              ],
+              borderWidth:1,
+              borderColor:'#777',
+              hoverBorderWidth:3,
+              hoverBorderColor:'#000'
+            }]
+          },
+          options:{
+            title:{
+              display:true,
+              text:title,
+              fontSize:25
+            },
+            legend:{
+              display:true,
+              position:'right',
+              labels:{
+                fontColor:'#000'
+              }
+            },
+            layout:{
+              padding:{
+                left:50,
+                right:0,
+                bottom:0,
+                top:0
+              }
+            },
+            tooltips:{
+              enabled:true
+            }
+          }
+        });
+          }
+        </script>
+</body>
+</html>

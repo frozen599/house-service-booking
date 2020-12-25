@@ -1,0 +1,150 @@
+<link rel="stylesheet" href="/css/shopping_cart.css">
+<!--Bắt đầu phần Banner-->
+<div class="jumbotron text-center banner-intro">
+    <div class="slogan slogan-intro">
+        <h1>KIỂM TRA LẠI THÔNG TIN</h1>
+    </div>
+</div>
+<!--Kết thúc phần Banner-->
+
+<div class="container">
+    <div class="row">
+
+        <div class="col-md-5">
+            <div class="left">
+
+                <form class="Order-review-form" id="Order-form">
+                    <div class="Title text-center">
+                        <h3 class="type" name="{{service.title}}">{{service.title}}</h3>
+                    </div>
+
+                    {{!-- <!-- Text input-->
+                    <div style="margin: 1em 0">
+                        <label for="name">Name:</label>
+                        <input id="name-cart" name="name" type="text" placeholder="Name" class="form-control input-md"
+                            required="">
+                    </div>
+
+                    <div class="Address text-center">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <input id="address-cart" name="address" type="text" placeholder="Address"
+                                        class="form-control input-md" required="" style="width: 100%">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <input id="district-cart" name="district" type="text" placeholder="District"
+                                        class="form-control input-md" required="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <p><strong>Email:</strong></p>
+                        <input id="email-cart" name="email" type="text" placeholder="email@gmail.com"
+                            class="form-control input-md" required="">
+                    </div>
+
+                    <div style="margin: 1em 0">
+                        <p><strong>Phone:</strong></p>
+                        <input type="text" name="phone" class="form-control" id="phone-cart" placeholder="Phone number"
+                            required>
+                    </div> --}}
+
+                    <div class="row">
+                        <div class="col-xs-12 text-center">
+                            <div>
+                                <h4><strong>Giờ bắt đầu</strong></h4>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <a onclick="MinusTime()"><span class="glyphicon glyphicon-minus-sign"
+                                            style="color: #c45c59"></span></a>
+                                </div>
+                                <div class="col-xs-4">
+                                    {{#if timeStart}}
+                                    <span id="time-start">{{timeStart}}</span>
+                                    {{else}}
+                                    <span id="time-start">06:00</span>
+                                    {{/if}}
+                                </div>
+                                <div class="col-xs-4">
+                                    <a onclick="PlusTime()"><span class="glyphicon glyphicon-plus-sign"
+                                            style="color: #32d039"></span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <!-- <div>Ngày trong tuần</div> -->
+                            <!-- <label><input id="cb2" type='checkbox' name='cbWeekdays' onclick='price()' value='2' checked>T2</label>
+                                <label><input id="cb3" type='checkbox' name='cbWeekdays' onclick='price()' value='3' >T3</label>
+                                <label><input id="cb4" type='checkbox' name='cbWeekdays' onclick='price()' value='4' >T4</label>
+                                <label><input id="cb5" type='checkbox' name='cbWeekdays' onclick='price()' value='5' >T5</label>
+                                <label><input id="cb6" type='checkbox' name='cbWeekdays' onclick='price()' value='6' >T6</label>
+                                <label><input id="cb7" type='checkbox' name='cbWeekdays' onclick='price()' value='7' >T7</label>
+                                <label><input id="cb8" type='checkbox' name='cbWeekdays' onclick='price()' value='8' >CN</label> -->
+                            <div>
+                                <p><strong>Ngày làm</strong></p>
+                            </div>
+                            {{#if dateStart}}
+                            <input type="date" class="glyphicon glyphicon-calendar" id="start-date" name="dateStart" value={{dateStart}}>
+                            {{else}}
+                            <input type="date" class="glyphicon glyphicon-calendar" id="start-date" name="dateStart">
+                            {{/if}}
+                        </div>
+                        <div class="col-xs-6">
+                            <div>
+                                <p><strong>Ngày kết thúc</strong></p>
+                            </div>
+                            <input type="date" class="glyphicon glyphicon-calendar" id="end-date" name="dateEnd">
+                        </div>
+                    </div>
+                    <p id="error" class="text-center" style="color: red;"></p>
+                    <div class="row" id="total">
+                        <div class="col-xs-6">
+                            <div class="left-title">
+                                <p>Phí dịch vụ</p>
+                                <h2>Tổng</h2>
+                            </div>
+                        </div>
+                        <div class="col-xs-6">
+                            <div class="right-item text-right">
+                                <p><span id="phi-dich-vu">{{service.price}}</span> đ</p>
+                                <h2><span id="tong">0</span> đ</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="button" class="btn-cart-add" value="HOÀN THÀNH" data-id="{{service.id}}">
+                </form>
+            </div>
+        </div>
+
+        <div class="col-md-7">
+            <div class="right">
+                <div class="info">
+                    <h3>GIÚP VIỆC THEO GIỜ</h3>
+                    <div class="content">
+                        <p>Người giúp việc sẽ làm các việc như lau dọn, nấu ăn, rửa bát, giặt là quần áo, trông em
+                            bé...theo yêu cầu của khách hàng.</p>
+                        <p>Giá niêm yết ở đây là giá có sở. Giá này có thể được điều chỉnh</p>
+                        <p>Quý khách vui lòng xem kỹ Giá tại thời điểm đặt hàng.</p>
+                    </div>
+                </div>
+
+                <div class="cancel-regulation">
+                    <h3>ĐIỀU KIỆN HOÀN HỦY</h3>
+                    <p><span class="glyphicon glyphicon-hand-right"></span> Hủy trước thời gian cần thực hiện 01 giờ:
+                        miễn phí.</p>
+                    <p><span class="glyphicon glyphicon-hand-right"></span> Hủy sau thời gian cần thực hiện 01 giờ: quý
+                        khách sẽ bị tính phí quản lý và 30% phí dịch vụ ngoại trừ các trường hợp công nhân không đến
+                        hoặc đến muộn quá 30 phút mà không được sự đồng ý của quý khách.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

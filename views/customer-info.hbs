@@ -1,0 +1,52 @@
+<div class="col-md-9">
+    <div class="right">
+        <div class="col-md-4 custom-info text-center">
+            <h2 style="margin-bottom: 1em;">Thông tin cá nhân</h2>
+            {{#if user.imagepath}}
+            <img id="customer-img" src="{{user.imagepath}}" alt="User Infp" width="200" height="300"
+                class="img-responsive">
+            {{else}}
+            <img id="customer-img" src="/images/bdaad77c7c46f8301d461b6a328b2e3a.jpg" alt="User Infp" width="200"
+                height="300" class="img-responsive">
+            {{/if}}
+
+            <form action="/profile" method="post" data-id="{{user.id}}" enctype="multipart/form-data">
+                <div class="row">
+                    <label class="col-md-4 control-label" for="imagepath-service">Edit Avatar</label>
+                    <div class="col-md-8">
+                        <input id="imagepath-service" name="myImage" class="input-file" type="file">
+                    </div>
+                </div>
+                <button type="submit">Submit</button>
+            </form>
+
+
+        </div>
+        <div class="col-md-8 info-detail">
+            <div class="row">
+                <div class="col-xs-3">
+                    <span>Họ tên:</span>
+                </div>
+                <div class="col-xs-9">
+                    <span>{{user.name}}</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-3">
+                    <span>Điện thoại:</span>
+                </div>
+                <div class="col-xs-9">
+                    <span id="phone">{{user.phone}}</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-3">
+                    <span>Email:</span>
+                </div>
+                <div class="col-xs-9">
+                    <span class="username">{{user.email}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
